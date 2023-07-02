@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web3.js Example</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.1-alpha.5/web3.min.js"
+      integrity="sha512-NfffVWpEqu1nq+658gzlJQilRBOvjs+PhEKSjT9gkQXRy9OfxI2TOXr33zS7MgGyTpBa5qtC6mKJkQGd9dN/rw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <h1 style="color: white; font-size: 24px; font-weight: bold;">
+        Fantom GPT Subscription
+      </h1>
+      <p id="status1" class="status" style="color: red">disconnected</p>
+      <p id="status2" style="color: white"></p>
+      <div class="maincontainer">
+        <!-- Connect Wallet -->
+        <div class="container">
+          <div class="buttonswrapper">
+            <div class="buttonswrapperGrid">
+              <button
+                id="metamask"
+                class="button28"
+                style="font-weight: bold;"
+              >
+                MetaMask (plz first install MetaMask and switch to the Fantom Testnet)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Info Button -->
+        <div class="secondcontainer">
+          <button id="accountbutton" class="button49">
+            Account Information
+          </button>
+        </div>
+
+        <!-- Send Transaction -->
+        <form>
+          <div class="inputcontainer">
+            <input
+              id="addressinput"
+              class="myinput"
+              placeholder="Address 0x0..."
+            />
+            <input
+              id="amountinput"
+              class="myinput"
+              placeholder="Amount ether..."
+              value="0.01"
+              readonly
+            />
+          </div>
+          <div class="buttoncontainer">
+            <button type="button" id="sendButton" class="button64">Send</button>
+          </div>
+        </form>
+
+        <!-- Mint -->
+        <!-- Removed the mint button and status3 paragraph -->
+
+        <!-- Drive link message -->
+        <div class="secondcontainer">
+          <p id="status3" style="color: white;"></p>
+        </div>
+      </div>
+    </main>
+    <script src="./main.js"></script>
+    <script>
+      // Display Metamask and network information
+      document.addEventListener("DOMContentLoaded", async () => {
+        const status1 = document.getElementById("status1");
+        const status2 = document.getElementById("status2");
+
+        if (typeof window.ethereum !== "undefined") {
+          status1.innerText = "connected";
+          status1.style.color = "green";
+          status2.innerText = "Network: fantom testnet";
+        } else {
+          status2.innerText = "Please install MetaMask";
+        }
+      });
+
+      // Send Transaction
+      const sendButton = document.getElementById("sendButton");
+      sendButton.addEventListener("click", async () => {
+        // Check if MetaMask is installed
+        if (typeof window.ethereum === "undefined") {
+          return;
+        }
+
+        const addressInput = document.getElementById("addressinput");
+        const amountInput = document.getElementById("amountinput");
+        const status3 = document.getElementById("status3");
+
+        const address = addressInput.value.trim();
+        const amount = amountInput.value.trim();
+
+        if (!address || !amount) {
+          return;
+        }
+
+        try {
+          // Perform the transaction
+          // Code to send transaction
+
+          // If transaction is successful
+          status3.innerText = "Transaction successful. Click ";
+          const driveLink = document.createElement("a");
+          driveLink.href =
+            "https://drive.google.com/file/d/1U4_7gKSeXWm-VvrJPNdyDusAhpO3he0X/view?usp=sharing";
+          driveLink.target = "_blank";
+          driveLink.rel = "noopener noreferrer";
+          driveLink.innerText = "here";
+          status3.appendChild(driveLink);
+          status3.innerHTML += " to download the file.";
+          status3.style.color = "white";
+        } catch (error) {
+          // If transaction fails
+          status3.innerText = "Transaction failed.";
+          status3.style.color = "white";
+        }
+      });
+    </script>
+  </body>
+</html>
